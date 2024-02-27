@@ -83,4 +83,4 @@ wandb.init(mode="disabled")
 
 trainer.train()
 
-trainer.save_model("/model_checkpoints/")
+trainer.save_model("/model_checkpoints/distilroberta/")

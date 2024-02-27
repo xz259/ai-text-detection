@@ -18,7 +18,7 @@ train = pd.read_csv('/data/train_essays.csv')
 train = train.drop_duplicates(subset=['text'])
 train = train.reset_index(drop=True)
 
-def train_and_tokenize(train, LOWERCASE=False, VOCAB_SIZE=30522):
+def tokenize(df, LOWERCASE=False, VOCAB_SIZE=30522):
     raw_tokenizer = Tokenizer(models.BPE(unk_token="[UNK]"))
 
     raw_tokenizer.normalizer = normalizers.Sequence(
@@ -47,32 +47,32 @@ def train_and_tokenize(train, LOWERCASE=False, VOCAB_SIZE=30522):
     )
 
 
-    tokenized_texts_train = [tokenizer.tokenize(text) for text in train['text'].tolist()]
+    tokenized_texts = [tokenizer.tokenize(text) for text in df['text'].tolist()]
     
 
-    return tokenized_texts_train
+    return tokenized_texts
 
-bpe_tokenized_texts_train = train_and_tokenize(train)
+bpe_train = tokenize(train)
 
 def dummy(text):
     return text
 
-def vectorize_texts(tokenized_texts):
+def vectorize(tokenized_texts):
     
     vectorizer = TfidfVectorizer(ngram_range=(3, 5), lowercase=False, sublinear_tf=True, 
                                  analyzer='word', tokenizer=dummy, preprocessor=dummy, 
                                  token_pattern=None, strip_accents='unicode', min_df=2, max_features=5000000)
 
 
-    tf_train = vectorizer.fit_transform(tokenized_texts)
+    X_train = vectorizer.fit_transform(tokenized_texts)
 
 
     return tf_train
 
-tf_train = vectorize_texts(bpe_tokenized_texts_train)
+X_train = vectorize(bpe_train)
 
 from scipy.sparse import save_npz, load_npz
 
-save_npz('/data/processed_train.npz', tf_train)
+save_npz('/data/processed_train.npz', X_train)
 
-tf_train = load_npz('/data/processed_train.npz')
+X_train = load_npz('/data/processed_train.npz')
