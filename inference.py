@@ -32,15 +32,13 @@ input_path = '/model_checkpoints/svc_model.pkl'
 with open(input_path, 'rb') as file:
     svc = pickle.load(file)
 
-# test set processing
-from data_processing import tokenize, vectorize
-
+# loading the test set
 test = pd.read_csv('/data/test_essays.csv')
-bpe_test = tokenize(test)
-X_test = vectorize(bpe_test)
 
-# make predictions using classical ML models
+from scipy.sparse import save_npz, load_npz
+X_test = load_npz('/data/processed_test.npz')
 
+# making predictions using classical ML models
 mnb_preds = mnb.predict_proba(X_test)[:, 1]
 ridge_preds = ridge.predict_proba(X_test)[:, 1]
 xgb_preds = xgb.predict_proba(X_test)[:, 1]
@@ -49,7 +47,6 @@ svc_preds = svc.predict_proba(X_test)[:, 1]
 classical_ML_preds = 0.25*mnb_preds + 0.25*ridge_preds + 0.25*xgb_preds + 0.25*svc_preds 
 
 # making predictions using distilroberta
-
 import torch
 model_checkpoint = "/model_checkpoints/distilroberta/"
 tokenizer = AutoTokenizer.from_pretrained(model_checkpoint)

@@ -14,6 +14,7 @@ from tokenizers import (
 )
 
 train = pd.read_csv('/data/train_essays.csv')
+test = pd.read_csv('/data/test_essays.csv')
 
 train = train.drop_duplicates(subset=['text'])
 train = train.reset_index(drop=True)
@@ -53,6 +54,7 @@ def tokenize(df, LOWERCASE=False, VOCAB_SIZE=30522):
     return tokenized_texts
 
 bpe_train = tokenize(train)
+bpe_test = tokenize(test)
 
 def dummy(text):
     return text
@@ -64,15 +66,18 @@ def vectorize(tokenized_texts):
                                  token_pattern=None, strip_accents='unicode', min_df=2, max_features=5000000)
 
 
-    X_train = vectorizer.fit_transform(tokenized_texts)
+    X_matrix = vectorizer.fit_transform(tokenized_texts)
 
 
-    return tf_train
+    return X_matrix
 
 X_train = vectorize(bpe_train)
+X_test = vectorize(bpe_test)
 
 from scipy.sparse import save_npz, load_npz
 
 save_npz('/data/processed_train.npz', X_train)
+save_npz('/data/processed_test.npz', X_test)
 
 X_train = load_npz('/data/processed_train.npz')
+X_test = load_npz('/data/processed_test.npz')
