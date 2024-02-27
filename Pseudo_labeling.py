@@ -14,6 +14,8 @@ X_test = load_npz('/data/processed_test.npz')
 
 from scipy.special import expit as sigmoid
 
+from inference import final_preds
+
 def pseudo_label_1(preds, iterations, pct):
 
     current_X_train = X_train.copy() 
@@ -57,11 +59,6 @@ def pseudo_label_1(preds, iterations, pct):
     final_preds = current_probs 
     return final_preds
 
-from inference import final_preds
-
-final_preds = pseudo_label(final_preds, 5, 0.2)
-
-
 
 import torch
 from datasets import Dataset
@@ -100,7 +97,7 @@ def pseudo_label_2(preds, epochs, pct):
 
     top_labels = np.ones(len(top_indices))
     bottom_labels = np.zeros(len(bottom_indices))
-    
+
 
     test_texts = test['text'].tolist()
     top_texts = [test_texts[i] for i in top_indices]
