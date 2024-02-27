@@ -3,6 +3,7 @@ import pandas as pd
 from sklearn.naive_bayes import MultinomialNB
 from sklearn.linear_model import Ridge
 from xgboost import XGBClassifier
+from sklearn.svm import SVC
 import pickle
 
 
@@ -25,6 +26,12 @@ input_path = '/model_checkpoints/xgb_model.pkl'
 with open(input_path, 'rb') as file:
     xgb = pickle.load(file)
 
+
+input_path = '/model_checkpoints/svc_model.pkl'
+
+with open(input_path, 'rb') as file:
+    svc = pickle.load(file)
+
 # test set processing
 from data_processing import tokenize, vectorize
 
@@ -37,8 +44,9 @@ X_test = vectorize(bpe_test)
 mnb_preds = mnb.predict_proba(X_test)[:, 1]
 ridge_preds = ridge.predict_proba(X_test)[:, 1]
 xgb_preds = xgb.predict_proba(X_test)[:, 1]
+svc_preds = svc.predict_proba(X_test)[:, 1]
 
-classical_ML_preds = 0.3*mnb_preds + 0.4*ridge_preds + 0.4*xgb_preds 
+classical_ML_preds = 0.25*mnb_preds + 0.25*ridge_preds + 0.25*xgb_preds + 0.25*svc_preds 
 
 # making predictions using distilroberta
 

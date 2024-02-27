@@ -3,6 +3,7 @@ import pandas as pd
 from sklearn.naive_bayes import MultinomialNB
 from sklearn.linear_model import Ridge
 from xgboost import XGBClassifier
+from sklearn.svm import SVC
 import pickle
 
 from scipy.sparse import load_npz
@@ -43,3 +44,20 @@ output_path = '/model_checkpoints/xgb_model.pkl'
 
 with open(output_path, 'wb') as file:
     pickle.dump(xgb, file)
+
+
+
+svc= SVC(
+        tol=1e-4, 
+        C=1e-5,           
+        kernel='linear',    
+        gamma='auto',
+        probability=True
+    )
+
+svc.fit(X_train, Y_train)
+
+output_path = '/model_checkpoints/svc_model.pkl'
+
+with open(output_path, 'wb') as file:
+    pickle.dump(svc, file)
