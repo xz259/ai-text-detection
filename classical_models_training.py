@@ -61,3 +61,4 @@ output_path = '/model_checkpoints/svc_model.pkl'
 
 with open(output_path, 'wb') as file:
     pickle.dump(svc, file)
+    
