@@ -25,8 +25,6 @@ This repository contains the source code and resources for a binary classificati
    ```sh
    pip install -r requirements.txt
 
-
-
 ## Running the Project
 
 To get the project up and running, follow these steps:
