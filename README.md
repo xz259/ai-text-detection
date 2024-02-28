@@ -20,3 +20,23 @@ This repository contains the source code and resources for a binary classificati
 1. **Clone the Repository**:
    ```sh
    git clone https://github.com/<your-username>/ai-text-detection.git
+
+2. **Install Dependencies**:
+   ```sh
+   pip install -r requirements.txt
+
+
+
+## Running the Project
+
+To get the project up and running, follow these steps:
+
+- **(optional)Exploratory Data Analysis**: Open `EDA.ipynb` with Jupyter Notebook or JupyterLab to explore the training dataset.
+- **(optional)Generating Synthetic Training Data**: Use `generate_synthetic_essays.ipynb` to create additional synthetic data for training.
+- **Data Processing**: Run `python data_processing.py` to tokenize and vectorize the datasets, and save the processed data for training and testing.
+- **(optional)Hyperparameter Optimization**: Launch `optuna.ipynb` to find the optimal hyperparameters for the classical ML models.
+- **Model Training**:
+  - For classical ML models, execute `python classical_models_training.py`.
+  - For DistilRoBERTa, run `python distilroberta_training.py`.
+- **Inference**: Use `python inference.py` to load the trained models, ensemble them, and make predictions on the test set.
+- **Pseudo Labeling**: Advanced pseudo-labeling techniques can be applied using `pseudo_labeling.py` to further refine the model's accuracy by leveraging confident predictions.
