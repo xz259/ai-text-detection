@@ -19,7 +19,7 @@ This repository contains the source code and resources for a binary classificati
 
 1. **Clone the Repository**:
    ```sh
-   git clone https://github.com/<your-username>/ai-text-detection.git
+   git clone https://github.com/q-xZzz/ai-text-detection.git
 
 2. **Install Dependencies**:
    ```sh
