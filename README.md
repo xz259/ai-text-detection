@@ -1,6 +1,6 @@
 # AI Generated Text Detection
 
-This repository contains the source code and resources for a binary classification project aimed at detecting AI-generated texts. The project is based on a [Kaggle competition](https://www.kaggle.com/competitions/llm-detect-ai-generated-text) and utilizes a variety of classical machine learning models as well as a fine-tuned DistilRoBERTa model to achieve its goal.
+This repository contains the source code and resources for a binary classification project aimed at detecting AI-generated texts. The project is based on the [Kaggle competition](https://www.kaggle.com/competitions/llm-detect-ai-generated-text) and utilizes a variety of classical machine learning models as well as a fine-tuned DistilRoBERTa model to achieve its goal.
 
 ## Project Structure
 
